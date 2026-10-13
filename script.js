@@ -290,13 +290,13 @@ if (intro) {
     const shapes = [
       ['0','0deg','1'],
       ['0','45deg','1'],
-      ['0','0deg','.62'],
-      ['50%','0deg','1.55']
+      ['50%','0deg','1'],
+      ['50%','0deg','1.65']
     ];
     const selected = shapes[Math.floor(Math.random() * shapes.length)];
     letter.style.setProperty('--shape-radius', selected[0]);
     letter.style.setProperty('--shape-rotation', selected[1]);
-    letter.style.setProperty('--shape-width', selected[2]);
+    letter.style.setProperty('--shape-height', selected[2]);
     letter.classList.add('is-shape');
   }
 
