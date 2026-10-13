@@ -124,6 +124,12 @@ if (intro) {
       clone.style.textAlign = computed.textAlign;
       layer.appendChild(clone);
       source.classList.add('gravity-source');
+
+      let gapAbove = parseFloat(computed.marginTop) || 0;
+      if (source.matches('.bio > h2')) {
+        gapAbove = parseFloat(getComputedStyle(source.parentElement).marginTop) || gapAbove;
+      }
+
       return {
         el:clone,
         originX:rect.left - sectionRect.left,
@@ -132,6 +138,7 @@ if (intro) {
         y:rect.top - sectionRect.top,
         width:rect.width,
         height:rect.height,
+        gapAbove,
         vx:(Math.random() - .5) * .22,
         vy:0,
         angle:0,
@@ -212,7 +219,7 @@ if (intro) {
           body.vx *= .88;
           body.angularVelocity *= .68;
         }
-        floor = Math.min(floor,body.y - 4);
+        floor = Math.min(floor,body.y - Math.max(6,body.gapAbove));
       });
     }
 
