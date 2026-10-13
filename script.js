@@ -198,30 +198,22 @@ if (intro) {
     intro.addEventListener('pointerdown',(event) => nudgeWithPointer(event,true),{passive:true});
     intro.addEventListener('pointerleave',() => { pointer.active = false; });
 
-    function resolveStacking() {
-      for (let pass = 0; pass < 7; pass += 1) {
-        for (let first = 0; first < bodies.length; first += 1) {
-          const a = bodies[first];
-          if (!a.released) continue;
-          for (let second = first + 1; second < bodies.length; second += 1) {
-            const b = bodies[second];
-            if (!b.released) continue;
-            const overlapX = Math.min(a.x + a.width,b.x + b.width) - Math.max(a.x,b.x);
-            const overlapY = Math.min(a.y + a.height,b.y + b.height) - Math.max(a.y,b.y);
-            if (overlapX <= 0 || overlapY <= 0) continue;
+    function resolveStacking(height) {
+      const released = bodies
+        .filter((body) => body.released)
+        .sort((a,b) => b.y - a.y);
+      let floor = height;
 
-            const aAbove = a.y + a.height / 2 <= b.y + b.height / 2;
-            const upper = aAbove ? a : b;
-            const lower = aAbove ? b : a;
-            upper.y -= overlapY + .35;
-            upper.vy = Math.min(upper.vy,lower.vy) * .08;
-            upper.vx *= .9;
-            upper.angularVelocity *= .72;
-            lower.angularVelocity *= .82;
-            lower.vx *= .96;
-          }
+      released.forEach((body) => {
+        const restingY = floor - body.height;
+        if (body.y > restingY) {
+          body.y = restingY;
+          body.vy = 0;
+          body.vx *= .88;
+          body.angularVelocity *= .68;
         }
-      }
+        floor = Math.min(floor,body.y - 4);
+      });
     }
 
     let last = performance.now();
@@ -260,7 +252,7 @@ if (intro) {
         if (Math.abs(body.vx) < .08 && Math.abs(body.vy) < .08) body.angle *= Math.pow(.992,dt);
       });
 
-      resolveStacking();
+      resolveStacking(height);
 
       bodies.forEach((body) => {
         body.el.style.transform = `translate3d(${body.x - body.originX}px,${body.y - body.originY}px,0) rotate(${body.angle}deg)`;
@@ -270,8 +262,13 @@ if (intro) {
     requestAnimationFrame(frame);
   }
 
-  if (mode === 'gravity') initGravity();
-  else targets.forEach(letterize);
+  if (mode === 'gravity') {
+    const startGravity = () => requestAnimationFrame(initGravity);
+    if (document.fonts?.ready) document.fonts.ready.then(startGravity,startGravity);
+    else startGravity();
+  } else {
+    targets.forEach(letterize);
+  }
 
   let lastDuplicate = 0;
 
