@@ -60,10 +60,8 @@ if (projectGrid) {
 
 if (intro) {
   const modes = reducedMotion
-    ? ['paint', 'shapes']
-    : finePointer
-      ? ['gravity', 'duplicate', 'paint', 'compose', 'flip', 'shapes']
-      : ['gravity', 'duplicate', 'paint', 'flip', 'shapes'];
+    ? ['flip', 'shapes']
+    : ['gravity', 'multiply', 'flip', 'shapes'];
   let previous = '';
   try { previous = sessionStorage.getItem('emma-intro-mode') || ''; } catch (_) {}
   const choices = modes.filter((mode) => mode !== previous);
@@ -71,7 +69,7 @@ if (intro) {
   try { sessionStorage.setItem('emma-intro-mode', mode); } catch (_) {}
   intro.dataset.mode = mode;
 
-  const targets = intro.querySelectorAll('.intro-statement, .headline, .contact, .bio');
+  const targets = intro.querySelectorAll('.intro-statement, .holding-note, .headline, .contact, .bio');
 
   function letterize(element) {
     const walker = document.createTreeWalker(element, NodeFilter.SHOW_TEXT);
@@ -101,7 +99,7 @@ if (intro) {
 
   function initGravity() {
     const sources = [...intro.querySelectorAll(
-      '.intro-statement, .headline, .contact, .bio > h2, .bio > p'
+      '.intro-statement, .holding-note, .headline, .contact, .bio > h2, .bio > p'
     )];
     const sectionRect = intro.getBoundingClientRect();
     const layer = document.createElement('div');
@@ -275,11 +273,7 @@ if (intro) {
   if (mode === 'gravity') initGravity();
   else targets.forEach(letterize);
 
-  const palette = ['#D95040', '#F9EB40', '#1B50AB', '#429448', '#E581C4'];
-  let colourIndex = Math.floor(Math.random() * palette.length);
   let lastDuplicate = 0;
-  let drag = null;
-  const positions = new WeakMap();
 
   function duplicate(letter) {
     const count = Number(letter.dataset.copies || 0);
@@ -292,10 +286,6 @@ if (intro) {
     letter.dataset.copies = String(count + 1);
   }
 
-  function paint(letter) {
-    colourIndex = (colourIndex + 1) % palette.length;
-    letter.style.color = palette[colourIndex];
-  }
 
   function shape(letter) {
     const shapes = [
@@ -314,45 +304,25 @@ if (intro) {
   intro.addEventListener('pointerover', (event) => {
     const letter = event.target.closest('.intro-letter');
     if (!letter || !intro.contains(letter)) return;
-    if (mode === 'duplicate') duplicate(letter);
-    if (mode === 'paint') paint(letter);
+    if (mode === 'multiply') duplicate(letter);
     if (mode === 'flip') letter.classList.toggle('is-flipped');
     if (mode === 'shapes') shape(letter);
   });
 
   intro.addEventListener('pointermove', (event) => {
-    if (mode === 'duplicate' && event.timeStamp - lastDuplicate > 75) {
+    if (mode === 'multiply' && event.timeStamp - lastDuplicate > 75) {
       const letter = event.target.closest('.intro-letter');
       if (letter) duplicate(letter);
       lastDuplicate = event.timeStamp;
     }
-    if (!drag || drag.pointerId !== event.pointerId) return;
-    const x = drag.originX + event.clientX - drag.startX;
-    const y = drag.originY + event.clientY - drag.startY;
-    drag.letter.style.transform = `translate3d(${x}px,${y}px,0)`;
-    positions.set(drag.letter,{x,y});
   });
 
   intro.addEventListener('pointerdown', (event) => {
     const letter = event.target.closest('.intro-letter');
     if (!letter) return;
-    if (!finePointer && mode === 'duplicate') duplicate(letter);
-    if (!finePointer && mode === 'paint') paint(letter);
+    if (!finePointer && mode === 'multiply') duplicate(letter);
     if (!finePointer && mode === 'flip') letter.classList.toggle('is-flipped');
     if (!finePointer && mode === 'shapes') shape(letter);
-    if (mode !== 'compose') return;
-    event.preventDefault();
-    const origin = positions.get(letter) || {x:0,y:0};
-    drag = { letter, pointerId:event.pointerId, startX:event.clientX, startY:event.clientY, originX:origin.x, originY:origin.y };
-    letter.setPointerCapture(event.pointerId);
-    letter.classList.add('is-dragging');
   });
 
-  function endDrag(event) {
-    if (!drag || drag.pointerId !== event.pointerId) return;
-    drag.letter.classList.remove('is-dragging');
-    drag = null;
-  }
-  intro.addEventListener('pointerup',endDrag);
-  intro.addEventListener('pointercancel',endDrag);
 }
