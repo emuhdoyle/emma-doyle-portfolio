@@ -220,7 +220,7 @@ if (intro) {
           body.vx *= .88;
           body.angularVelocity *= .68;
         }
-        floor = Math.min(floor,body.y - Math.max(6,body.gapAbove));
+        floor = Math.min(floor,body.y - Math.max(14,body.gapAbove));
       });
     }
 
