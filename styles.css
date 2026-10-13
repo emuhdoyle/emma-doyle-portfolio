@@ -54,13 +54,13 @@ a { color:inherit; text-underline-offset:.08em; text-decoration-thickness:.055em
 }
 .intro-block { margin-top:clamp(22px,2.35vw,34px); }
 .intro h1,.intro h2 {
-  font-size:20px;
+  font-size:27px;
   font-weight:300;
   line-height:1.1;
   letter-spacing:-.03em;
 }
 .holding-note,.headline p,.contact p {
-  font-size:20px;
+  font-size:18px;
   font-weight:300;
   line-height:1.1;
   letter-spacing:-.025em;
@@ -69,7 +69,7 @@ a { color:inherit; text-underline-offset:.08em; text-decoration-thickness:.055em
 .bio { margin-top:clamp(24px,2.4vw,35px); }
 .bio h2 { margin-bottom:clamp(7px,.65vw,10px); }
 .bio p {
-  font-size:20px;
+  font-size:18px;
   font-weight:300;
   line-height:1.1;
   letter-spacing:-.02em;
@@ -238,7 +238,7 @@ a { color:inherit; text-underline-offset:.08em; text-decoration-thickness:.055em
   .intro-inner { width:min(68vw,680px); margin-left:14px; padding:24px 0 40px; }
   .intro-statement { font-size:27px; }
   .intro-block { margin-top:30px; }
-  .intro h1,.intro h2 { font-size:18px; }
+  .intro h1,.intro h2 { font-size:27px; }
   .holding-note,.headline p,.contact p,.bio p { font-size:18px; line-height:1.1; }
   .bio { margin-top:30px; }
   .bio p + p { margin-top:12px; }
@@ -255,8 +255,8 @@ a { color:inherit; text-underline-offset:.08em; text-decoration-thickness:.055em
   .intro-inner { width:calc(100% - 36px); margin-left:14px; padding:22px 0 36px; }
   .intro-statement { font-size:24px; }
   .intro-block { margin-top:24px; }
-  .intro h1,.intro h2 { font-size:16px; }
-  .holding-note,.headline p,.contact p,.bio p { font-size:16px; line-height:1.1; }
+  .intro h1,.intro h2 { font-size:27px; }
+  .holding-note,.headline p,.contact p,.bio p { font-size:18px; line-height:1.1; }
   .bio { margin-top:26px; }
   .bio p + p { margin-top:11px; }
   .latest { aspect-ratio:4/5; }
