@@ -89,7 +89,7 @@ a { color:inherit; text-underline-offset:.08em; text-decoration-thickness:.055em
   width:.68em; height:.68em;
   background:var(--white);
   border-radius:var(--shape-radius,0);
-  transform:translate(-50%,-50%) rotate(var(--shape-rotation,0deg)) scaleX(var(--shape-width,1));
+  transform:translate(-50%,-50%) rotate(var(--shape-rotation,0deg)) scaleY(var(--shape-height,1));
 }
 .intro[data-mode="gravity"] .gravity-source { opacity:0; pointer-events:none; }
 .gravity-layer { position:absolute; z-index:2; inset:0; overflow:hidden; pointer-events:none; }
