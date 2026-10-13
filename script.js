@@ -132,6 +132,7 @@ if (intro) {
 
       return {
         el:clone,
+        order:index,
         originX:rect.left - sectionRect.left,
         originY:rect.top - sectionRect.top,
         x:rect.left - sectionRect.left,
@@ -208,7 +209,7 @@ if (intro) {
     function resolveStacking(height) {
       const released = bodies
         .filter((body) => body.released)
-        .sort((a,b) => b.y - a.y);
+        .sort((a,b) => b.order - a.order);
       let floor = height;
 
       released.forEach((body) => {
