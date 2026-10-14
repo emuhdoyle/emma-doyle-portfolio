@@ -81,16 +81,6 @@ a { color:inherit; text-underline-offset:.08em; text-decoration-thickness:.055em
 .letter-copy { color:inherit; pointer-events:none; }
 .intro[data-mode="flip"] .intro-letter { transition:transform .28s ease; }
 .intro[data-mode="flip"] .intro-letter.is-flipped { transform:rotate(180deg); }
-.intro[data-mode="shapes"] .intro-letter.is-shape { color:transparent; }
-.intro[data-mode="shapes"] .intro-letter.is-shape::after {
-  content:"";
-  position:absolute;
-  left:50%; top:50%;
-  width:.68em; height:.68em;
-  background:var(--white);
-  border-radius:var(--shape-radius,0);
-  transform:translate(-50%,-50%) rotate(var(--shape-rotation,0deg)) scaleY(var(--shape-height,1));
-}
 .intro[data-mode="gravity"] .gravity-source { opacity:0; pointer-events:none; }
 .gravity-layer { position:absolute; z-index:2; inset:0; overflow:hidden; pointer-events:none; }
 .gravity-chunk { position:absolute; display:block; margin:0; color:var(--white); transform-origin:center; will-change:transform; }
@@ -293,5 +283,4 @@ a { color:inherit; text-underline-offset:.08em; text-decoration-thickness:.055em
 
 @media (hover:hover) {
   .intro a:hover { color:#EFFF00; }
-  .intro a:hover .intro-letter.is-shape::after { background:#EFFF00; }
 }
