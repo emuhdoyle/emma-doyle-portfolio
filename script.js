@@ -112,6 +112,7 @@ if (intro) {
       const computed = getComputedStyle(source);
       const clone = source.cloneNode(true);
       clone.classList.add('gravity-chunk');
+      clone.style.setProperty('margin','0','important');
       clone.style.left = `${rect.left - sectionRect.left}px`;
       clone.style.top = `${rect.top - sectionRect.top}px`;
       clone.style.width = `${rect.width}px`;
