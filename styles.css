@@ -290,3 +290,8 @@ a { color:inherit; text-underline-offset:.08em; text-decoration-thickness:.055em
   html { scroll-behavior:auto; }
   * { transition-duration:.001ms !important; }
 }
+
+@media (hover:hover) {
+  .intro a:hover { color:#EFFF00; }
+  .intro a:hover .intro-letter.is-shape::after { background:#EFFF00; }
+}
