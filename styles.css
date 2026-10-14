@@ -65,7 +65,7 @@ a { color:inherit; text-underline-offset:.08em; text-decoration-thickness:.055em
   line-height:1.1;
   letter-spacing:-.025em;
 }
-.contact a { text-decoration:none; }
+.contact a,.holding-note a { text-decoration:none; }
 .bio { margin-top:clamp(24px,2.4vw,35px); }
 .bio h2 { margin-bottom:clamp(7px,.65vw,10px); }
 .bio p {
@@ -271,6 +271,10 @@ a { color:inherit; text-underline-offset:.08em; text-decoration-thickness:.055em
     padding-bottom:max(10px,env(safe-area-inset-bottom));
     background:var(--black);
   }
+}
+
+@media (max-width:600px) {
+  .intro-statement > span:nth-child(3) { text-wrap:balance; }
 }
 
 @media (max-width:430px) {
