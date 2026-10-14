@@ -60,8 +60,8 @@ if (projectGrid) {
 
 if (intro) {
   const modes = reducedMotion
-    ? ['flip', 'shapes']
-    : ['gravity', 'multiply', 'flip', 'shapes'];
+    ? ['flip']
+    : ['gravity', 'multiply', 'flip'];
   let previous = '';
   try { previous = sessionStorage.getItem('emma-intro-mode') || ''; } catch (_) {}
   const choices = modes.filter((mode) => mode !== previous);
@@ -287,26 +287,11 @@ if (intro) {
   }
 
 
-  function shape(letter) {
-    const shapes = [
-      ['0','0deg','1'],
-      ['0','45deg','1'],
-      ['50%','0deg','1'],
-      ['50%','0deg','1.65']
-    ];
-    const selected = shapes[Math.floor(Math.random() * shapes.length)];
-    letter.style.setProperty('--shape-radius', selected[0]);
-    letter.style.setProperty('--shape-rotation', selected[1]);
-    letter.style.setProperty('--shape-height', selected[2]);
-    letter.classList.add('is-shape');
-  }
-
   intro.addEventListener('pointerover', (event) => {
     const letter = event.target.closest('.intro-letter');
     if (!letter || !intro.contains(letter)) return;
     if (mode === 'multiply') duplicate(letter);
     if (mode === 'flip') letter.classList.toggle('is-flipped');
-    if (mode === 'shapes') shape(letter);
   });
 
   intro.addEventListener('pointermove', (event) => {
@@ -322,7 +307,6 @@ if (intro) {
     if (!letter) return;
     if (!finePointer && mode === 'multiply') duplicate(letter);
     if (!finePointer && mode === 'flip') letter.classList.toggle('is-flipped');
-    if (!finePointer && mode === 'shapes') shape(letter);
   });
 
 }
