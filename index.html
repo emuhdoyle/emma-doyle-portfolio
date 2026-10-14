@@ -15,6 +15,11 @@
     html, body, main { background:#A3A3A3; }
     .intro { min-height:100svh; }
     .intro-statement strong { font-weight:600; letter-spacing:-.025em; }
+    .intro-underlined, .intro-underlined .intro-letter {
+      text-decoration:underline;
+      text-underline-offset:.08em;
+      text-decoration-thickness:.055em;
+    }
   </style>
 </head>
 <body>
@@ -25,7 +30,7 @@
           <span>Emma Doyle</span>
           <span>is a <strong>creative strategist and designer</strong></span>
           <span>working to understand and improve the everyday</span>
-          <span>interactions between <a href="#bio">people</a>, systems, and technology.</span>
+          <span>interactions between <span class="intro-underlined">people</span>, <span class="intro-underlined">systems</span>, and <span class="intro-underlined">technology</span>.</span>
         </p>
 
         <p class="holding-note">Full site coming soon, please <a href="mailto:hej@emmadoyle.se">reach out</a> for full portfolio.</p>
